@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "481846790589",
+    "firebase_url": "https://looking-for-apero.firebaseio.com",
+    "project_id": "looking-for-apero",
+    "storage_bucket": "looking-for-apero.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:481846790589:android:82aacca99e6279bfb22ad4",
+        "android_client_info": {
+          "package_name": "com.example.looking_for_apero"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "481846790589-0n65rsnmlbtkig1f65136kj7js2069gm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8jkpHPE9Nad0A7ZyrKLLPn3yTGmfQwUc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "481846790589-0n65rsnmlbtkig1f65136kj7js2069gm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
