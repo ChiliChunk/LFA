@@ -33,76 +33,73 @@ class _UserProfileDataState extends State<UserProfileData> {
           UserData userData = snapshot.data;
 
           return Form(
-              key: _formKey,
-              child: Scaffold(
+            key: _formKey,
+            child: Scaffold(
+              resizeToAvoidBottomInset: false,
               backgroundColor: Colors.blue[100],
-              body: Container(
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/bg.jpg'),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
-                  // alignment: Alignment.topLeft,
-                  child: Column(
-                  children: <Widget>[
-                    // Container(
-                    //   child: Text(userData.firstName + '\n' +userData.lastName),
-                    // ),
-                    Text('Basic user settings'),
-                    SizedBox(height: 20.0),
-                    TextFormField(
-                      initialValue: _currentFirstName ?? userData.firstName,
-                      decoration: textInputDecoration,
-                      validator: (val) => val.isEmpty ? 'please enter your first name': null,
-                      onChanged: (val) => setState(() => _currentFirstName = val),
-                    ),
-                    SizedBox(height: 20.0),
-                    TextFormField(
-                      initialValue: _currentLastName ?? userData.lastName,
-                      decoration: textInputDecoration,
-                      validator: (val) => val.isEmpty ? 'please enter your last name': null,
-                      onChanged: (val) => setState(() => _currentLastName = val),
-                    ),
-                    SizedBox(height: 20.0),
-                    Text('Please select your age'),
-                    NumberPicker.integer(                     
-                      initialValue: _currentAge ?? userData.age,
-                      minValue: 10,
-                      maxValue: 100,
-                      onChanged: (val) => setState(() => _currentAge = val),
-                    ),
-                    SizedBox(height: 20.0),
-                    Text('Bio'),
-                    SizedBox(height: 20.0),
-                    TextFormField(
-                      initialValue: _currentBio ?? userData.bio,
-                      decoration: new InputDecoration(
-                        hintText: 'tell more about you...',
-                        filled: true,
-                        fillColor: Colors.white,
+              body: SingleChildScrollView(
+                    child: Container(
+                    padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
+                    // alignment: Alignment.topLeft,
+                    child: Column(
+                    children: <Widget>[
+                      // Container(
+                      //   child: Text(userData.firstName + '\n' +userData.lastName),
+                      // ),
+                      Text('Basic user settings'),
+                      SizedBox(height: 20.0),
+                      TextFormField(
+                        initialValue: _currentFirstName ?? userData.firstName,
+                        decoration: textInputDecoration,
+                        validator: (val) => val.isEmpty ? 'please enter your first name': null,
+                        onChanged: (val) => setState(() => _currentFirstName = val),
                       ),
-                      onChanged: (val) => setState(() => _currentBio = val),
-                    ),
-                    SizedBox(height: 50.0),
+                      SizedBox(height: 20.0),
+                      TextFormField(
+                        initialValue: _currentLastName ?? userData.lastName,
+                        decoration: textInputDecoration,
+                        validator: (val) => val.isEmpty ? 'please enter your last name': null,
+                        onChanged: (val) => setState(() => _currentLastName = val),
+                      ),
+                      SizedBox(height: 20.0),
+                      Text('Please select your age'),
+                      NumberPicker.integer(                     
+                        initialValue: _currentAge ?? userData.age,
+                        minValue: 10,
+                        maxValue: 100,
+                        onChanged: (val) => setState(() => _currentAge = val),
+                      ),
+                      SizedBox(height: 20.0),
+                      Text('Bio'),
+                      SizedBox(height: 20.0),
+                      TextFormField(
+                        initialValue: _currentBio ?? userData.bio,
+                        decoration: new InputDecoration(
+                          hintText: 'tell more about you...',
+                          filled: true,
+                          fillColor: Colors.white,
+                        ),
+                        onChanged: (val) => setState(() => _currentBio = val),
+                      ),
+                      SizedBox(height: 50.0),
 
-                    RaisedButton(
-                      child: Text('Save'),
-                      elevation: 5,
-                      onPressed: () async {
-                        if(_formKey.currentState.validate()){
-                          await DatabaseService(uid: userData.uid).updateUserData(
-                            // if _currentFirstName has a value use it otherwise use userData.firstName
-                            _currentFirstName ?? userData.firstName, 
-                            _currentLastName ?? userData.lastName, 
-                            _currentBio ?? userData.bio,
-                            _currentAge ?? userData.age,
-                            );
-                        }
-                      },
-                    ),
-                  ],
+                      RaisedButton(
+                        child: Text('Save'),
+                        elevation: 5,
+                        onPressed: () async {
+                          if(_formKey.currentState.validate()){
+                            await DatabaseService(uid: userData.uid).updateUserData(
+                              // if _currentFirstName has a value use it otherwise use userData.firstName
+                              _currentFirstName ?? userData.firstName, 
+                              _currentLastName ?? userData.lastName, 
+                              _currentBio ?? userData.bio,
+                              _currentAge ?? userData.age,
+                              );
+                          }
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:looking_for_apero/screens/authenticate/sign_in.dart';
 import 'package:looking_for_apero/services/auth.dart';
 import 'package:looking_for_apero/shared/constants.dart';
 import 'package:looking_for_apero/shared/loading.dart';
