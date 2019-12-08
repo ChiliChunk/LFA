@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:looking_for_apero/screens/authenticate/register.dart';
 import 'package:looking_for_apero/services/auth.dart';
+import 'package:looking_for_apero/shared/constants.dart';
+import 'package:looking_for_apero/shared/loading.dart';
 
 // this class displays the signIn form
 
@@ -18,6 +20,7 @@ class _SignInState extends State<SignIn> {
 
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
+  bool loading = false;
 
   // store the sign in state
   String email = "";
@@ -26,7 +29,8 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    // if loading = true display Loading widget
+    return loading ? Loading() : Scaffold(
       backgroundColor: Colors.blue[100],
       appBar: AppBar(
         backgroundColor: Colors.blue[500],
@@ -48,8 +52,8 @@ class _SignInState extends State<SignIn> {
                   setState(() => email = val);                  
                 },
                 validator: (val) => val.isEmpty ? 'Enter an email' : null,
-                decoration: InputDecoration(
-                  hintText: 'Email'
+                decoration: textInputDecoration.copyWith(
+                  hintText: 'Email',
                 ),
               ),
               SizedBox(height: 20.0),
@@ -61,8 +65,8 @@ class _SignInState extends State<SignIn> {
                   setState(() => password = val);                  
                 },
                 validator: (val) => val.length < 6 ? 'Enter a password 6+ chars long' : null,
-                decoration: InputDecoration(
-                  hintText: 'Password'
+                decoration: textInputDecoration.copyWith(
+                  hintText: 'Password',
                 ),
               ),
               SizedBox(height: 20.0),
@@ -79,9 +83,13 @@ class _SignInState extends State<SignIn> {
                 ),
                 onPressed: () async {
                   if(_formKey.currentState.validate()){
+                    setState(() => loading = true);
                     dynamic result = await _auth.signInWithEmailAndPassword(email, password);
                     if(result == null) {
-                      setState(() => error = 'Email or password incorrect');
+                      setState(() {
+                        error = 'Email or password incorrect';
+                        loading = false;
+                      });
                     }
                     // Don't need a else because of the user stream already set up
                   }

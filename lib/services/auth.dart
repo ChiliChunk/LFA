@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:looking_for_apero/screens/models/user.dart';
+import 'package:looking_for_apero/services/database.dart';
 
 // this class implements all sign in and log in methods
 
@@ -35,6 +36,7 @@ class AuthService {
     try{
       AuthResult result = await _auth.signInWithEmailAndPassword(email:email, password: password);
       FirebaseUser user = result.user;
+
       return _userFromFireBaseUser(user);
     }catch(e){
       print(e.toString());
@@ -47,6 +49,9 @@ class AuthService {
     try{
       AuthResult result = await _auth.createUserWithEmailAndPassword(email:email, password: password);
       FirebaseUser user = result.user;
+
+      // create a new document for the user with the uid
+      await DatabaseService(uid: user.uid).updateUserData('firstName', 'lastName', 'bio', 10);
       return _userFromFireBaseUser(user);
     }catch(e){
       print(e.toString());

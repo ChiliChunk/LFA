@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:looking_for_apero/screens/authenticate/sign_in.dart';
 import 'package:looking_for_apero/services/auth.dart';
+import 'package:looking_for_apero/shared/constants.dart';
+import 'package:looking_for_apero/shared/loading.dart';
 
 // this class displays the register form 
 
@@ -17,6 +19,7 @@ class _RegisterState extends State<Register> {
 
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
+  bool loading = false;
 
   // store the sign in state
   String email = "";
@@ -25,7 +28,7 @@ class _RegisterState extends State<Register> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return loading ? Loading() : Scaffold(
       backgroundColor: Colors.blue[100],
       appBar: AppBar(
         backgroundColor: Colors.blue[500],
@@ -49,8 +52,8 @@ class _RegisterState extends State<Register> {
                 onChanged: (val){
                   setState(() => email = val);                  
                 },
-                decoration: InputDecoration(
-                  hintText: 'Email'
+                decoration: textInputDecoration.copyWith(
+                  hintText: 'Email',
                 ),
               ),
               SizedBox(height: 20.0),
@@ -62,8 +65,8 @@ class _RegisterState extends State<Register> {
                 onChanged: (val){
                   setState(() => password = val);                  
                 },
-                decoration: InputDecoration(
-                  hintText: 'Password'
+                decoration: textInputDecoration.copyWith(
+                  hintText: 'Password',
                 ),
               ),
               SizedBox(height: 20.0),
@@ -81,9 +84,13 @@ class _RegisterState extends State<Register> {
                 onPressed: () async {
                   // check if form fields are populated
                   if(_formKey.currentState.validate()){
+                    setState(() => loading = true);
                     dynamic result = await _auth.registerWithEmailAndPassword(email, password);
                     if(result == null) {
-                      setState(() => error = 'Please supply a valid email');
+                      setState(() {
+                        error = 'Please supply a valid email';
+                        loading = false;
+                      });
                     }
                     // Don't need a else because of the user stream already set up
                   }
