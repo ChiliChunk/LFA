@@ -1,8 +1,8 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:looking_for_apero/screens/home/homePage/home.dart';
-import 'package:looking_for_apero/screens/home/pendingApero/pendingApero.dart';
-import 'package:looking_for_apero/screens/home/userProfile.dart/userProfilePage.dart';
+import 'package:looking_for_apero/screens/home/pendingApero/pendingAperoPage.dart';
+import 'package:looking_for_apero/screens/home/userProfile/userProfilePage.dart';
 
 import 'package:looking_for_apero/services/auth.dart';
 
@@ -13,22 +13,20 @@ class Router extends StatefulWidget {
 }
 
 class _RouterState extends State<Router> {
-
   final AuthService _auth = AuthService();
-  int _index = 0 ;
+  int _index = 0;
   final _pageOptions = [
     // Home(),
     Home(),
-    PendingApero(),
+    PendingAperoPage(),
     UserProfilePage(),
     UserProfilePage(),
   ];
 
-@override
-Widget build(BuildContext context) {
-
+  @override
+  Widget build(BuildContext context) {
     return Container(
-        child: Scaffold(
+      child: Scaffold(
         // resizeToAvoidBottomInset: false,
         bottomNavigationBar: CurvedNavigationBar(
           items: <Widget>[
@@ -41,7 +39,7 @@ Widget build(BuildContext context) {
           backgroundColor: Colors.blue[100],
           animationCurve: Curves.easeOutCubic,
           animationDuration: Duration(milliseconds: 600),
-          onTap: (index){
+          onTap: (index) {
             setState(() {
               _index = index;
             });
@@ -64,8 +62,8 @@ Widget build(BuildContext context) {
         ),
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add),
-          backgroundColor:Colors.blue,
-          splashColor:Colors.blue[700],
+          backgroundColor: Colors.blue,
+          splashColor: Colors.blue[700],
           onPressed: () {
             // _btnColor = Colors.red;
             print('Open the form to create an Apero');
